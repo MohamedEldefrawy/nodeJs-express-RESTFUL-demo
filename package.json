@@ -4,8 +4,12 @@
   "description": "Web service demo using express js",
   "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.mjs"
   },
   "author": "Mohamed Eldefrawy",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.17.3"
+  }
 }

@@ -77,4 +77,18 @@ export class UserServices {
             message: "'couldn't find selected user",
         }
     }
+
+    login(user) {
+        let currentUser = this.getUser(user.username);
+
+        if (currentUser !== null && user.password === currentUser.password)
+            return {
+                'success': true,
+                'message': `Welcome${user.username}`
+            };
+        return {
+            'success': false,
+            'message': "Wrong username or password"
+        };
+    }
 }

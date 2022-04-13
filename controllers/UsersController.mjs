@@ -7,6 +7,9 @@ export class UsersController {
     }
 
     registerController(request, response) {
+        let result = new UserServices().createUser(request.body);
+        console.log(result);
+        response.json(result);
     }
 
     loginController(request, response) {

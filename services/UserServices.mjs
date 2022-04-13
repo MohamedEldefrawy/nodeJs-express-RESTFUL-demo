@@ -15,13 +15,11 @@ export class UserServices {
 
     createUser(newUser) {
         let users = this.getAllUsers();
-        console.log(this.getUser(newUser.username));
+        let user = this.getUser(newUser.name);
 
-        if (this.getUser(newUser.username) === undefined) {
+        if (user === undefined) {
             users.push(newUser);
-            let fileHandler = new FileHandler();
-            fileHandler.fileName = './users.json';
-            fileHandler.writeJsonFile(JSON.stringify(users));
+            new FileHandler().writeJsonFile(users);
             return {
                 'success': true,
                 'newUser': newUser

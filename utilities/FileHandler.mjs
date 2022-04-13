@@ -3,6 +3,7 @@ import {readFileSync, writeFileSync, stat} from 'fs';
 export class FileHandler {
     fileName;
 
+
     get fileName() {
         return this._fileName;
     }
@@ -11,14 +12,13 @@ export class FileHandler {
         this._fileName = value;
     }
 
-    constructor(fileName) {
-        this._fileName = fileName;
+    constructor() {
+        this._fileName = "./model/users.json";
     }
 
     readJsonFile(fileName) {
         stat(fileName, function (error, stat) {
             if (error == null) {
-                console.log("File exists");
             } else if (error.code === "ENOENT") {
                 writeFileSync(fileName, JSON.stringify([]));
             }
@@ -27,6 +27,6 @@ export class FileHandler {
     }
 
     writeJsonFile(content) {
-        writeFileSync(this.fileName, content.toString());
+        writeFileSync(this._fileName, JSON.stringify(content));
     }
 }

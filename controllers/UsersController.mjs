@@ -13,6 +13,9 @@ export class UsersController {
     }
 
     getUserController(request, response) {
+        let selectedUser = new UserServices().getUser(request.params.name);
+        console.log(selectedUser);
+        response.json(selectedUser);
     }
 
     getUsersController(request, response) {

@@ -4,7 +4,7 @@ export class UserServices {
 
     getUser(userName) {
         return this.getAllUsers().find((user) => {
-            if (user.username === userName)
+            if (user.name === userName)
                 return user;
         });
     }

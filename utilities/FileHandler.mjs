@@ -16,11 +16,6 @@ export class FileHandler {
     }
 
     readJsonFile(fileName) {
-        // try {
-        //     return JSON.parse(readFileSync(fileName, 'utf8'));
-        // } catch (err) {
-        //     console.error(err);
-        // }
         stat(fileName, function (error, stat) {
             if (error == null) {
                 console.log("File exists");

@@ -1,6 +1,6 @@
 import {readFileSync, writeFileSync} from 'fs';
 
-class FileHandler {
+export class FileHandler {
     fileName;
 
     get fileName() {

@@ -1,0 +1,11 @@
+{
+  "name": "web-service-express",
+  "version": "1.0.0",
+  "description": "Web service demo using express js",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohamed Eldefrawy",
+  "license": "ISC"
+}

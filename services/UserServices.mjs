@@ -38,9 +38,14 @@ export class UserServices {
         if (selectedUser !== undefined) {
             selectedUser.email = newUser.email;
             selectedUser.phone = newUser.phone;
-            users.filter((user) => {
-                return user.name !== userName;
-            });
+            selectedUser.name = newUser.name;
+            selectedUser.password = newUser.password
+            users.splice(users.findIndex(value => {
+                return value.name === userName;
+            }), 1);
+
+            users.push(selectedUser);
+
             new FileHandler().writeJsonFile(users);
 
             return {
@@ -58,9 +63,9 @@ export class UserServices {
         let users = this.getAllUsers();
         let selectedUser = this.getUser(userName);
         if (selectedUser !== undefined) {
-            users.filter((user) => {
-                return user.name !== userName;
-            });
+            users.splice(users.findIndex(value => {
+                return value.name === userName;
+            }), 1);
             new FileHandler().writeJsonFile(users);
 
             return {

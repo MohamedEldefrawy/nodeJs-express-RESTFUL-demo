@@ -30,9 +30,13 @@ export class UsersController {
     }
 
     updateUserController(request, response) {
+        let result = new UserServices().updateUser(request.params.name, request.body);
+        response.json(result);
     }
 
     deleteUserController(request, response) {
+        let result = new UserServices().deleteUser(request.params.name);
+        response.json(result);
     }
 
 }

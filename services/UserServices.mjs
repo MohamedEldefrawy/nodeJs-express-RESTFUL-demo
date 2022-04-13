@@ -10,7 +10,7 @@ export class UserServices {
     }
 
     getAllUsers() {
-        return new FileHandler().readJsonFile('./users.json');
+        return new FileHandler().readJsonFile('./model/users.json');
     }
 
     createUser(newUser) {

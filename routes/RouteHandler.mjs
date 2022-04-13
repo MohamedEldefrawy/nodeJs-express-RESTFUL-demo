@@ -11,6 +11,7 @@ export class RouteHandler {
         RouteHandler.userController = new UsersController();
         RouteHandler.router.get('/', RouteHandler.userController.homeController);
         RouteHandler.router.get('/home', RouteHandler.userController.homeController);
+        RouteHandler.router.get('/users', RouteHandler.userController.getUsersController);
         return this.router;
     }
 }

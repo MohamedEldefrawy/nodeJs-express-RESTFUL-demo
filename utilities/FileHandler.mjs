@@ -1,4 +1,4 @@
-import {readFileSync, writeFileSync} from 'fs';
+import {readFileSync, writeFileSync, stat} from 'fs';
 
 export class FileHandler {
     fileName;
@@ -16,11 +16,19 @@ export class FileHandler {
     }
 
     readJsonFile(fileName) {
-        try {
-            return JSON.parse(readFileSync(fileName, 'utf8'));
-        } catch (err) {
-            console.error(err)
-        }
+        // try {
+        //     return JSON.parse(readFileSync(fileName, 'utf8'));
+        // } catch (err) {
+        //     console.error(err);
+        // }
+        stat(fileName, function (error, stat) {
+            if (error == null) {
+                console.log("File exists");
+            } else if (error.code === "ENOENT") {
+                writeFileSync(fileName, JSON.stringify([]));
+            }
+        });
+        return JSON.parse(readFileSync(fileName, 'utf8'));
     }
 
     writeJsonFile(content) {

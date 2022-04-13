@@ -13,6 +13,8 @@ export class UsersController {
     }
 
     loginController(request, response) {
+        let loginResult = new UserServices().login(request.body);
+        response.json(loginResult);
     }
 
     getUserController(request, response) {

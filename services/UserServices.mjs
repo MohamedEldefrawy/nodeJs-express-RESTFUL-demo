@@ -77,12 +77,12 @@ export class UserServices {
     }
 
     login(user) {
-        let currentUser = this.getUser(user.username);
+        let currentUser = this.getUser(user.name);
 
-        if (currentUser !== null && user.password === currentUser.password)
+        if (currentUser !== undefined && user.password === currentUser.password)
             return {
                 'success': true,
-                'message': `Welcome${user.username}`
+                'message': `Welcome ${user.name}`
             };
         return {
             'success': false,

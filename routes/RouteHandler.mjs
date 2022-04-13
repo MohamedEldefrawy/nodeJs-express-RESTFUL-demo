@@ -13,6 +13,7 @@ export class RouteHandler {
         RouteHandler.router.get('/home', RouteHandler.userController.homeController);
         RouteHandler.router.get('/users', RouteHandler.userController.getUsersController);
         RouteHandler.router.post('/users', RouteHandler.userController.registerController);
+        RouteHandler.router.post('/users/login', RouteHandler.userController.loginController);
         RouteHandler.router.get('/users/:name', RouteHandler.userController.getUserController);
         return this.router;
     }

@@ -9,6 +9,7 @@ export class RouteHandler {
     static getRouter() {
         RouteHandler.router = new express.Router();
         RouteHandler.userController = new UsersController();
+        // RouteHandler.router("/").get().post()
         RouteHandler.router.get('/', RouteHandler.userController.homeController);
         RouteHandler.router.get('/home', RouteHandler.userController.homeController);
         RouteHandler.router.get('/users', RouteHandler.userController.getUsersController);

@@ -1,6 +1,13 @@
 import {FileHandler} from '../utilities/FileHandler.mjs'
+import {DbConnection} from "../model/DbConnection.mjs";
 
 export class UserServices {
+
+    dbContext;
+
+    constructor() {
+        this.dbContext = new DbConnection().openConnection("test_users");
+    }
 
     getUser(userName) {
         return this.getAllUsers().find((user) => {
@@ -10,25 +17,11 @@ export class UserServices {
     }
 
     getAllUsers() {
-        return new FileHandler().readJsonFile('./model/users.json');
+        return this.dbContext.find({});
     }
 
     createUser(newUser) {
-        let users = this.getAllUsers();
-        let user = this.getUser(newUser.name);
-
-        if (user === undefined) {
-            users.push(newUser);
-            new FileHandler().writeJsonFile(users);
-            return {
-                'success': true,
-                'newUser': newUser
-            }
-        }
-        return {
-            success: false,
-            message: 'user name already exists'
-        }
+        return this.dbContext.create(newUser);
     }
 
     updateUser(userName, newUser) {

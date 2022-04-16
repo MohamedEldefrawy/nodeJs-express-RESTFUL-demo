@@ -7,9 +7,20 @@ export class UsersController {
     }
 
     registerController(request, response) {
-        let result = new UserServices().createUser(request.body);
-        console.log(result);
-        response.json(result);
+        // let result = new UserServices().createUser(request.body);
+        // console.log(result);
+        response.json(new UserServices().createUser(request.body).then(data => {
+            return {
+                'success': true,
+                'newUser': request.body
+            }
+        }).catch(error => {
+            return {
+                success: false,
+                message: 'user name already exists',
+                error: error
+            }
+        }));
     }
 
     loginController(request, response) {
@@ -25,8 +36,9 @@ export class UsersController {
 
     getUsersController(request, response) {
         let userService = new UserServices();
-        let users = userService.getAllUsers();
-        response.json(users);
+        let users = userService.getAllUsers().then(data => {
+            response.json(data);
+        });
     }
 
     updateUserController(request, response) {

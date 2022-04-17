@@ -24,7 +24,9 @@ This is a solution of creating RESTFUL API of CRUD operations using express.js
    ``` https://github.com/MohamedEldefrawy/nodeJs-express-RESTFUL-demo.git```
 2) install [node](https://nodejs.org/en/download/)
 3) in the project directory run the following
-4) ```npm install```
+4) ```
+   npm install
+   ```
     ```
     npm start
     ```

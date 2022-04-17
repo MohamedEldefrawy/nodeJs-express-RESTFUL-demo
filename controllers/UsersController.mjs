@@ -2,53 +2,89 @@ import {UserServices} from "../services/UserServices.mjs";
 
 export class UsersController {
 
+    static userService = new UserServices();
+
     homeController(request, response) {
         response.render("home", {});
     }
 
     registerController(request, response) {
-        // let result = new UserServices().createUser(request.body);
-        // console.log(result);
-        response.json(new UserServices().createUser(request.body).then(data => {
-            return {
+        UsersController.userService.createUser(request.body).then(data => {
+            response.json({
                 'success': true,
                 'newUser': request.body
-            }
+            })
         }).catch(error => {
-            return {
+            response.json({
                 success: false,
                 message: 'user name already exists',
                 error: error
-            }
-        }));
+            });
+        });
     }
 
     loginController(request, response) {
-        let loginResult = new UserServices().login(request.body);
-        response.json(loginResult);
-    }
-
-    getUserController(request, response) {
-        let selectedUser = new UserServices().getUser(request.params.name);
-        console.log(selectedUser);
-        response.json(selectedUser);
-    }
-
-    getUsersController(request, response) {
-        let userService = new UserServices();
-        let users = userService.getAllUsers().then(data => {
+        UsersController.userService.login(request.body).then(data => {
             response.json(data);
         });
     }
 
+    getUserController(request, response) {
+        UsersController.userService.getUser(request.params.email).then(data => {
+            response.json(
+                {
+                    success: true,
+                    user: data
+                }
+            )
+        }).catch(error => {
+            response.json({
+                success: false,
+                error: error
+            });
+        });
+    }
+
+    getUsersController(request, response) {
+        UsersController.userService.getAllUsers().then(data => {
+            response.json({
+                success: true,
+                data: data
+            });
+        }).catch(onerror => {
+            return {
+                success: false,
+                error: onerror
+            }
+        });
+    }
+
     updateUserController(request, response) {
-        let result = new UserServices().updateUser(request.params.name, request.body);
-        response.json(result);
+        UsersController.userService.updateUser(request.params.email, request.body).then(data => {
+            response.json({
+                success: true,
+                data: data
+            });
+        }).catch(onerror => {
+            return {
+                success: false,
+                error: onerror
+            }
+        });
     }
 
     deleteUserController(request, response) {
-        let result = new UserServices().deleteUser(request.params.name);
-        response.json(result);
+        UsersController.userService.deleteUser(request.params.email).then(data => {
+            response.json({
+                success: true,
+                data: data
+            });
+        }).catch(onerror => {
+            return {
+                success: false,
+                error: onerror
+            }
+        });
     }
 
 }

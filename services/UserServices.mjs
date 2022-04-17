@@ -6,14 +6,11 @@ export class UserServices {
     dbContext;
 
     constructor() {
-        this.dbContext = new DbConnection().openConnection("test_users");
+        this.dbContext = DbConnection.openConnection("test_users");
     }
 
-    getUser(userName) {
-        return this.getAllUsers().find((user) => {
-            if (user.name === userName)
-                return user;
-        });
+    getUser(email) {
+        return this.dbContext.find({"email": email});
     }
 
     getAllUsers() {
@@ -24,67 +21,32 @@ export class UserServices {
         return this.dbContext.create(newUser);
     }
 
-    updateUser(userName, newUser) {
-        let users = this.getAllUsers();
-        let selectedUser = this.getUser(userName);
-
-        if (selectedUser !== undefined) {
-            selectedUser.email = newUser.email;
-            selectedUser.phone = newUser.phone;
-            selectedUser.name = newUser.name;
-            selectedUser.password = newUser.password
-            users.splice(users.findIndex(value => {
-                return value.name === userName;
-            }), 1);
-
-            users.push(selectedUser);
-
-            new FileHandler().writeJsonFile(users);
-
-            return {
-                'success': true,
-                'newUser': selectedUser
-            }
-        }
-        return {
-            success: false,
-            message: "couldn't find selected user"
-        }
+    updateUser(email, newUser) {
+        return this.dbContext.findOneAndUpdate({"email": email}, newUser);
     }
 
-    deleteUser(userName) {
-        let users = this.getAllUsers();
-        let selectedUser = this.getUser(userName);
-        if (selectedUser !== undefined) {
-            users.splice(users.findIndex(value => {
-                return value.name === userName;
-            }), 1);
-            new FileHandler().writeJsonFile(users);
-
-            return {
-                'success': true,
-                message: 'selected user has been deleted',
-                'newUser': selectedUser
-            }
-        }
-
-        return {
-            'success': false,
-            message: "'couldn't find selected user",
-        }
+    deleteUser(email) {
+        return this.dbContext.findOneAndDelete({"email": email});
     }
 
-    login(user) {
-        let currentUser = this.getUser(user.name);
+    async login(user) {
+        let currentUser = await this.dbContext.findOne({"email": user.email}).exec();
 
-        if (currentUser !== undefined && user.password === currentUser.password)
+        // console.log(currentUser);
+        // console.log(user);
+        if (currentUser !== undefined && currentUser.password === user.password)
             return {
-                'success': true,
-                'message': `Welcome ${user.name}`
+                success: true,
+                email: user.email,
+                message: `Welcome ${user.name}`
+            }
+        else
+            return {
+                success: false,
+                message: "Wrong username or password"
             };
-        return {
-            'success': false,
-            'message': "Wrong username or password"
-        };
+
     }
+
+
 }

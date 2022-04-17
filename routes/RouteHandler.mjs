@@ -15,9 +15,9 @@ export class RouteHandler {
         RouteHandler.router.get('/users', RouteHandler.userController.getUsersController);
         RouteHandler.router.post('/users', RouteHandler.userController.registerController);
         RouteHandler.router.post('/users/login', RouteHandler.userController.loginController);
-        RouteHandler.router.get('/users/:name', RouteHandler.userController.getUserController);
-        RouteHandler.router.put('/users/:name', RouteHandler.userController.updateUserController);
-        RouteHandler.router.delete('/users/:name', RouteHandler.userController.deleteUserController);
+        RouteHandler.router.get('/users/:email', RouteHandler.userController.getUserController);
+        RouteHandler.router.put('/users/:email', RouteHandler.userController.updateUserController);
+        RouteHandler.router.delete('/users/:email', RouteHandler.userController.deleteUserController);
         return this.router;
     }
 }
